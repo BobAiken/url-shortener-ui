@@ -20,7 +20,7 @@ export default function App() {
         'Content-Type': 'application/json'
       }
     }).then(response => response.json())
-    .then(()=>{getUrls().then(data=>setUrls(data.urls))})
+    .then(data => {setUrls([...urls,data])})
   }
 
   return (

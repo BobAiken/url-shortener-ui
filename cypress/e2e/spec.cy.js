@@ -1,7 +1,8 @@
 describe('empty spec', () => {
 
   beforeEach(()=>{
-    cy.intercept('http://localhost:3001/api/v1/urls',{
+    
+    cy.intercept('GET','http://localhost:3001/api/v1/urls',{
       urls: [
       {
       id: 1,
@@ -29,5 +30,15 @@ describe('empty spec', () => {
     .get('input[name="urlToShorten"]')
     .type("A url to shorten")
     .should('have.value',"A url to shorten")
+  })
+
+  it('should display the new shortened url after the form is submitted',()=>{
+    cy.intercept('POST','http://localhost:3001/api/v1/urls',{id: 2, long_url: "https://images.unsplash.com/photo...", short_url: "http://localhost:3001/useshorturl/2", title: 'Awesome photo'}).as('apiCheck')
+    cy.get('input[name="title"]')
+    .type("This will")
+    .get('input[name="urlToShorten"]')
+    .type("Get stubbed")
+    .get('form').children().last().click()
+
   })
 })
