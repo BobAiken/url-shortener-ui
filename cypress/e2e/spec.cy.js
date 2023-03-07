@@ -39,6 +39,6 @@ describe('empty spec', () => {
     .get('input[name="urlToShorten"]')
     .type("Get stubbed")
     .get('form').children().last().click()
-    .get('div[class="url"]').contains('Congrats')
+    .get('section').children().last().contains('Congrats')
   })
 })
