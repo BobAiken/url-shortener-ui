@@ -10,14 +10,24 @@ export default function App() {
 
   useEffect(()=>{
     getUrls().then(data=>setUrls(data.urls))
-  })
+  },[])
 
+  const submitURL = (newURL) => {
+    fetch('http://localhost:3001/api/v1/urls', {
+      method: 'POST',
+      body: JSON.stringify(newURL),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(response => response.json())
+    .then(()=>{getUrls().then(data=>setUrls(data.urls))})
+  }
 
   return (
      <main className="App">
        <header>
          <h1>URL Shortener</h1>
-        <UrlForm />
+        <UrlForm submitURL={submitURL}/>
       </header>
       <UrlContainer urls={urls}/>
     </main>
