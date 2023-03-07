@@ -13,7 +13,21 @@ describe('empty spec', () => {
       })
     cy.visit('http://localhost:3000/')
   })
+
   it('should display the page title and existing shortened URLs', () => {
     cy.contains('URL Shortener')
+    .get('div[class="url"]')
+    .contains('Awesome photo')
+  })
+
+  it('should display a form with the properly changing inputs', ()=>{
+    cy.get('form').children()
+    .should('have.length', 3)
+    .get('input[name="title"]')
+    .type("A title")
+    .should('have.value',"A title")
+    .get('input[name="urlToShorten"]')
+    .type("A url to shorten")
+    .should('have.value',"A url to shorten")
   })
 })
